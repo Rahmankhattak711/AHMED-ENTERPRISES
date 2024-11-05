@@ -1,8 +1,8 @@
 import { Formik, Form } from "formik";
-import React from "react";
-import * as Yup from "yup"; 
+import React from "react"
 import Button from "../Button";
 import InputField from "./InputFailed";
+import { LabourValidationSchema } from "./validation/LabourValidation";
 
 interface FormValues {
   approved: string;
@@ -13,30 +13,11 @@ interface FormValues {
   amount: string;
 }
 
+interface LabourServiceFormProps {
+  onRowAdd: (row: FormValues, label: string) => void;
+}
 
-const validationSchema = Yup.object().shape({
-  approved: Yup.string()
-    .required("Approval status is required")
-    .oneOf(["Yes", "No"], "Approved must be 'Yes' or 'No'"),
-  voc: Yup.string()
-    .required("VOC details are required"),
-  detailJob: Yup.string()
-    .required("Job details are required"),
-  fir: Yup.string()
-    .required("FIR status is required")
-    .oneOf(["Yes", "No"], "FIR must be 'Yes' or 'No'"),
-  remarks: Yup.string(),
-  amount: Yup.number()
-    .required("Amount is required")
-    .positive("Amount must be positive")
-    .integer("Amount must be an integer"),
-});
-
-export default function LabourServiceForm({
-  onRowAdd,
-}: {
-  onRowAdd: (row: any, label: string) => void;
-}) {
+export default function LabourServiceForm({ onRowAdd }: LabourServiceFormProps) {
   const initialValues: FormValues = {
     approved: "",
     voc: "",
@@ -47,21 +28,20 @@ export default function LabourServiceForm({
   };
 
   const handleSaveToLocalStorage = (newData: FormValues) => {
-    const existingData = JSON.parse(localStorage.getItem("tableData") || "[]");
+    const existingData = JSON.parse(localStorage.getItem("LabourtableData") || "[]");
     const updatedData = [...existingData, newData];
-    localStorage.setItem("tableData", JSON.stringify(updatedData));
+    localStorage.setItem("LabourtableData", JSON.stringify(updatedData));
   };
 
   return (
     <div className="w-full px-4">
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema} 
+        validationSchema={LabourValidationSchema} 
         onSubmit={(values, { resetForm }) => {
           handleSaveToLocalStorage(values);
           onRowAdd(values, "labourService");
           resetForm();
-          console.log("Form data:", values);
         }}
       >
         {() => (

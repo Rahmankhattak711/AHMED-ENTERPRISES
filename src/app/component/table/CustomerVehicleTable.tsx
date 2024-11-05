@@ -1,29 +1,35 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useReactTable, getCoreRowModel } from "@tanstack/react-table";
-import Button from "../Button";
-import { CustomerVehicleInfo } from "./TableColumns";
-import CustomerVehicleForm from "../form/CustomerVehicleFrom";
-import "@/app/globals.css";
+import React, { useEffect, useState } from 'react';
+import { useReactTable, getCoreRowModel } from '@tanstack/react-table';
+import Button from '../Button';
+import { CustomerVehicleInfo } from './TableColumns';
+import CustomerVehicleForm from '../form/CustomerVehicleFrom';
+import '@/app/globals.css';
 
-export default function CustomerVehicleInfoTable({ rowData }: any) {
+interface CustomerVehicleInfo {
+  vehicleMake: string;
+  vehicleModel: string;
+  // Add other properties as needed
+}
+
+export default function CustomerVehicleInfoTable({ rowData }: { rowData: CustomerVehicleInfo[] }) {
   const [data, setData] = useState(rowData || []);
-  const [hide, setHide] = useState(false); 
+  const [hide, setHide] = useState(false);
+
   const toggleForm = () => setHide(!hide);
 
-  const onRowAdd = (row: any) => {
+  const onRowAdd = (row: CustomerVehicleInfo) => {
     const updatedData = [...data, row];
     setData(updatedData);
-    localStorage.setItem("tableData", JSON.stringify(updatedData));
+    localStorage.setItem('tableData', JSON.stringify(updatedData));
   };
 
   const loadDataFromLocalStorage = () => {
-    const storedData = JSON.parse(localStorage.getItem("tableData") || "[]");
+    const storedData = JSON.parse(localStorage.getItem('tableData') || '[]') as CustomerVehicleInfo[];
     setData(storedData);
   };
 
   const clearData = () => {
-    localStorage.removeItem("tableData");
+    localStorage.removeItem('tableData');
     setData([]);
   };
 
@@ -40,7 +46,7 @@ export default function CustomerVehicleInfoTable({ rowData }: any) {
   return (
     <div className="w-full flex flex-col gap-6 p-4">
       <h1 className="text-2xl font-bold mb-4">Customer Vehicle Info</h1>
-      
+
       <div className="w-full overflow-x-auto rounded-lg shadow-lg">
         <table className="w-full bg-white rounded-lg overflow-hidden">
           <thead className="bg-gray-600 text-white">
@@ -54,11 +60,11 @@ export default function CustomerVehicleInfoTable({ rowData }: any) {
               </tr>
             ))}
           </thead>
-          
+
           <tbody>
-          <tr className="no-print">
-              <td colSpan={table.getAllColumns().length} >
-                <Button onClick={toggleForm} text={hide ? "Hide Form" : "Show Form"} className="mb-2" />
+            <tr className="no-print">
+              <td colSpan={table.getAllColumns().length}>
+                <Button onClick={toggleForm} text={hide ? 'Hide Form' : 'Show Form'} className="mb-2" />
                 {hide && (
                   <div className="w-full mt-4">
                     <CustomerVehicleForm onRowAdd={onRowAdd} />

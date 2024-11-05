@@ -1,8 +1,8 @@
 import { Formik, Form } from "formik";
 import React from "react";
-import * as Yup from "yup";
 import Button from "../Button";
 import InputField from "./InputFailed";
+import { CustomerValidationSchema } from "./validation/CustomerValidation";
 
 interface FormValues {
   make: string;
@@ -14,22 +14,10 @@ interface FormValues {
   color: string;
 }
 
-const validationSchema = Yup.object().shape({
-  make: Yup.string().required("Make is required"),
-  variant: Yup.string().required("Variant is required"),
-  regNo: Yup.string().required("Registration number is required"),
-  mileage: Yup.number()
-    .required("Mileage is required")
-    .positive("Mileage must be a positive number"),
-  chassisNo: Yup.string().required("Chassis number is required"),
-  engineNo: Yup.string().required("Engine number is required"),
-  color: Yup.string().required("Color is required"),
-});
-
 export default function CustomerVehicleForm({
   onRowAdd,
 }: {
-  onRowAdd: (row: any, label: string) => void;
+  onRowAdd: (row: FormValues, label: string) => void;  
 }) {
   const initialValues: FormValues = {
     make: "",
@@ -51,12 +39,11 @@ export default function CustomerVehicleForm({
     <div className="w-full px-4 py-6 bg-white shadow-md rounded-lg">
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema} 
+        validationSchema={CustomerValidationSchema} 
         onSubmit={(values, { resetForm }) => {
           handleSaveToLocalStorage(values);
           onRowAdd(values, "vehicleCustomer");
           resetForm();
-          console.log("Form data:", values);
         }}
       >
         {() => (

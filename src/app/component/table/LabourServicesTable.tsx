@@ -6,32 +6,46 @@ import { LabourCol } from "./TableColumns";
 import LabourService from "../form/LabourServiceForm";
 import "@/app/globals.css";
 
-export default function LabourServicesTable({ rowData }: any) {
+interface LabourServiceInfo {
+  amount: number;
+  remarks: string;
+  approved: string;
+  voc: string;
+  detailJob: string;
+  fir: string;
+}
+
+export default function LabourServicesTable({
+  rowData,
+}: {
+  rowData: LabourServiceInfo[];
+}) {
   const [data, setData] = useState(rowData || []);
   const [hide, setHide] = useState(false);
+
   const toggleForm = () => setHide(!hide);
 
-  const onRowAdd = (row: any) => {
+  const onRowAdd = (row: LabourServiceInfo) => {
     const updatedData = [...data, row];
     setData(updatedData);
-    localStorage.setItem("tableData", JSON.stringify(updatedData));
+    localStorage.setItem("LabourtableData", JSON.stringify(updatedData));
   };
 
   const loadDataFromLocalStorage = () => {
-    const storedData = JSON.parse(localStorage.getItem("tableData") || "[]");
+    const storedData = JSON.parse(
+      localStorage.getItem("LabourtableData") || "[]"
+    ) as LabourServiceInfo[];
     setData(storedData);
   };
 
   const clearData = () => {
-    localStorage.removeItem("tableData");
+    localStorage.removeItem("LabourtableData");
     setData([]);
   };
 
   const calculateTotalAmount = () => {
-    return data.reduce((total: any, row: any) => total + parseFloat(row.amount || 0), 0);
+    return data.reduce((total, row) => total + parseFloat(row.amount || 0), 0);
   };
-  
-  
 
   useEffect(() => {
     loadDataFromLocalStorage();
@@ -88,7 +102,7 @@ export default function LabourServicesTable({ rowData }: any) {
                     key={cell.id}
                     className="p-3 text-xs md:text-sm border-b border-gray-200"
                   >
-                    {cell.getValue}
+                    {cell.getValue()}
                   </td>
                 ))}
               </tr>
@@ -102,7 +116,7 @@ export default function LabourServicesTable({ rowData }: any) {
                 Total Amount:
               </td>
               <td className="p-3 border-t border-gray-200 text-right">
-                {calculateTotalAmount().toFixed(2)}
+                {calculateTotalAmount().toFixed()}
               </td>
             </tr>
           </tbody>

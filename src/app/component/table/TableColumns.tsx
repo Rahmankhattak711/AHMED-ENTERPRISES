@@ -8,7 +8,7 @@ interface TableRow {
   remarks: string;
   amount: number;
   estPrice: number;
-  finalAmount: number;
+  finalPrice: number;
 
   //  customer vehicle info
   make: string;
@@ -58,8 +58,8 @@ export const SubletServiceCol = [
   columnHelper.accessor("estPrice", {
     header: () => "Est Price",
   }),
-  columnHelper.accessor("finalAmount", {
-    header: () => "FinalAmount",
+  columnHelper.accessor("finalPrice", {
+    header: () => "Final Price",
   }),
 ];
 

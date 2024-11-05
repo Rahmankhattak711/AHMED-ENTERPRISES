@@ -1,8 +1,8 @@
 import { Formik, Form } from "formik";
 import React from "react";
-import * as Yup from "yup"; 
 import Button from "../Button";
 import InputField from "./InputFailed";
+import { SubletValidationSchema } from "./validation/SubletValidation";
 
 interface FormValues {
   approved: string;
@@ -13,29 +13,11 @@ interface FormValues {
   finalPrice: string;
 }
 
+interface SubletServiceFormProps {
+  onRowAdd: (row: FormValues, label: string) => void;
+}
 
-const validationSchema = Yup.object().shape({
-  approved: Yup.string()
-    .oneOf(["Yes", "No"], "Must be either 'Yes' or 'No'")
-    .required("Approved is required"),
-  voc: Yup.string().required("VOC is required"),
-  remarks: Yup.string().optional(),
-  fir: Yup.string()
-    .oneOf(["Yes", "No"], "Must be either 'Yes' or 'No'")
-    .required("FIR is required"),
-  estPrice: Yup.number()
-    .required("Estimated Price is required")
-    .positive("Estimated Price must be a positive number"),
-  finalPrice: Yup.number()
-    .required("Final Price is required")
-    .positive("Final Price must be a positive number"),
-});
-
-export default function SubletServiceForm({
-  onRowAdd,
-}: {
-  onRowAdd: (row: any, label: string) => void;
-}) {
+export default function SubletServiceForm({ onRowAdd }: SubletServiceFormProps) {
   const initialValues: FormValues = {
     approved: "",
     voc: "",
@@ -46,21 +28,20 @@ export default function SubletServiceForm({
   };
 
   const handleSaveToLocalStorage = (newData: FormValues) => {
-    const existingData = JSON.parse(localStorage.getItem("tableData") || "[]");
+    const existingData = JSON.parse(localStorage.getItem("subletableData") || "[]");
     const updatedData = [...existingData, newData];
-    localStorage.setItem("tableData", JSON.stringify(updatedData));
+    localStorage.setItem("subletableData", JSON.stringify(updatedData));
   };
 
   return (
     <div className="w-full px-4">
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema} 
+        validationSchema={SubletValidationSchema} 
         onSubmit={(values, { resetForm }) => {
           handleSaveToLocalStorage(values);
           onRowAdd(values, "subletService");
           resetForm();
-          console.log("Form data:", values);
         }}
       >
         {() => (

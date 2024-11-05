@@ -6,39 +6,40 @@ import SubletServicesTable from "@/app/component/table/SubletServicesTable";
 import SummaryTable from "@/app/component/table/SummaryTable";
 import Button from "./component/Button";
 import Header from "./component/Header";
+import CustomerOwnerInfoTable from "./component/table/CustomerOwnerInfoTable";
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
+
+
   const reactToPrintFn = useReactToPrint({ contentRef });
 
   const [labourData, setLabourData] = useState([]);
   const [subletData, setSubletData] = useState([]);
+  const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {
-    const storedLabourData = JSON.parse(localStorage.getItem("tableData") || "[]");
+    const storedLabourData = JSON.parse(localStorage.getItem("LabourtableData") || "[]");
     setLabourData(storedLabourData);
 
-    const storedSubletData = JSON.parse(localStorage.getItem("subletTableData") || "[]");
+    const storedSubletData = JSON.parse(localStorage.getItem("subletableData") || "[]");
     setSubletData(storedSubletData);
+
+
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("en-CA");
+    setCurrentDate(formattedDate);
   }, []);
-
-  const handleLabourDataUpdate = (newData:any) => {
-    setLabourData(newData);
-    localStorage.setItem("tableData", JSON.stringify(newData)); 
-  };
-
-  const handleSubletDataUpdate = (newData:any) => {
-    setSubletData(newData);
-    localStorage.setItem("subletTableData", JSON.stringify(newData));
-  };
 
   return (
     <div className="w-full flex-col flex items-center text-left ">
       <div className="w-[90%]">
         <div ref={contentRef}>
+          <p className="text-right mb-4">Date: {currentDate}</p> 
           <Header />
-          <LabourServicesTable rowData={labourData} onUpdate={handleLabourDataUpdate} />
-          <SubletServicesTable rowData={subletData} onUpdate={handleSubletDataUpdate} />
+          <CustomerOwnerInfoTable />
+          <LabourServicesTable rowData={labourData} />
+          <SubletServicesTable rowData={subletData} />
           <SummaryTable labourData={labourData} subletData={subletData} />
         </div>
         <Button onClick={reactToPrintFn} text="Print Docs" />
