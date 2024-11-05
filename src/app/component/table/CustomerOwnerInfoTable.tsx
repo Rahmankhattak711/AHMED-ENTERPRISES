@@ -42,7 +42,7 @@ export default function CustomerOwnerInfoTable({
     loadDataFromLocalStorage();
   }, []);
 
-  const LabourCol = [
+  const LabourCol: { Header: string; accessor: keyof CustomerOwnerInfo }[] = [
     {
       Header: "User Name:",
       accessor: "userName",
@@ -85,7 +85,9 @@ export default function CustomerOwnerInfoTable({
             {data.map((row, index) => (
               <div key={index}>
                 {LabourCol.map((column) => (
-                  <div key={column.accessor}>{row[column.accessor]}</div>
+                  <div key={column.accessor}>
+                    {row[column.accessor]}
+                  </div>
                 ))}
               </div>
             ))}

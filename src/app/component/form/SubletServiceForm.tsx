@@ -4,7 +4,7 @@ import Button from "../Button";
 import InputField from "./InputFailed";
 import { SubletValidationSchema } from "./validation/SubletValidation";
 
-interface FormValues {
+export interface FormValues {
   approved: string;
   voc: string;
   estPrice: string;
@@ -13,11 +13,11 @@ interface FormValues {
   finalPrice: string;
 }
 
-interface SubletServiceFormProps {
+export default function SubletServiceForm({
+  onRowAdd,
+}: {
   onRowAdd: (row: FormValues, label: string) => void;
-}
-
-export default function SubletServiceForm({ onRowAdd }: SubletServiceFormProps) {
+}) {
   const initialValues: FormValues = {
     approved: "",
     voc: "",
@@ -28,7 +28,9 @@ export default function SubletServiceForm({ onRowAdd }: SubletServiceFormProps) 
   };
 
   const handleSaveToLocalStorage = (newData: FormValues) => {
-    const existingData = JSON.parse(localStorage.getItem("subletableData") || "[]");
+    const existingData = JSON.parse(
+      localStorage.getItem("subletableData") || "[]"
+    );
     const updatedData = [...existingData, newData];
     localStorage.setItem("subletableData", JSON.stringify(updatedData));
   };
@@ -37,7 +39,7 @@ export default function SubletServiceForm({ onRowAdd }: SubletServiceFormProps) 
     <div className="w-full px-4">
       <Formik
         initialValues={initialValues}
-        validationSchema={SubletValidationSchema} 
+        validationSchema={SubletValidationSchema}
         onSubmit={(values, { resetForm }) => {
           handleSaveToLocalStorage(values);
           onRowAdd(values, "subletService");
@@ -47,12 +49,30 @@ export default function SubletServiceForm({ onRowAdd }: SubletServiceFormProps) 
         {() => (
           <Form className="w-full flex flex-col items-center mb-4">
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <InputField label="Approved" name="approved" placeholder="Yes/No" />
+              <InputField
+                label="Approved"
+                name="approved"
+                placeholder="Yes/No"
+              />
               <InputField label="VOC" name="voc" placeholder="VOC details" />
-              <InputField label="Remarks" name="remarks" placeholder="Any remarks" />
+              <InputField
+                label="Remarks"
+                name="remarks"
+                placeholder="Any remarks"
+              />
               <InputField label="Fir" name="fir" placeholder="Yes/No" />
-              <InputField label="Est Price" name="estPrice" type="number" placeholder="Estimated Price" />
-              <InputField label="Final Price" name="finalPrice" type="number" placeholder="Final Price" />
+              <InputField
+                label="Est Price"
+                name="estPrice"
+                type="number"
+                placeholder="Estimated Price"
+              />
+              <InputField
+                label="Final Price"
+                name="finalPrice"
+                type="number"
+                placeholder="Final Price"
+              />
             </div>
             <Button type="submit" text="Add Row" className="mt-4" />
           </Form>

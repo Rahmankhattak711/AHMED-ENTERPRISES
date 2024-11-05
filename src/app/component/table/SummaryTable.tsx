@@ -2,18 +2,28 @@
 
 import React, { useEffect, useState } from "react";
 
+interface RowData {
+  amount?: number;
+  finalPrice?: number;
+}
+
+interface SummaryTableProps {
+  labourData?: RowData[];
+  subletData?: RowData[];
+}
+
 export default function SummaryTable({
   labourData = [],
   subletData = [],
-}: any) {
-  const [data, setData] = useState([]);
+}: SummaryTableProps) {
+  const [data, setData] = useState<RowData[]>([]);
 
   useEffect(() => {
     const storedLabourData = localStorage.getItem("LabourtableData");
     const storedSubletData = localStorage.getItem("subletableData");
 
     if (storedLabourData && storedSubletData) {
-      const combinedData: any = [
+      const combinedData: RowData[] = [
         ...JSON.parse(storedLabourData),
         ...JSON.parse(storedSubletData),
       ];
@@ -23,18 +33,11 @@ export default function SummaryTable({
     } else if (storedSubletData) {
       setData(JSON.parse(storedSubletData));
     }
-  }, []);
+  }, [data]);
 
-  const calculateTotalAmount = (data: any) => {
+  const calculateTotalAmount = (data: RowData[]) => {
     return (data || []).reduce(
-      (total: number, row: any) => total + parseFloat(row.amount || row.finalPrice || 0),
-      0
-    );
-  };
-
-  const calculateTotalFinalPrice = (data: any) => {
-    return (data || []).reduce(
-      (total: number, row: any) => total + parseFloat(row.finalPrice || 0),
+      (total, row) => total + (row.amount || row.finalPrice || 0),
       0
     );
   };
@@ -70,7 +73,7 @@ export default function SummaryTable({
           </tr>
           <tr>
             <td className="p-3 text-xs md:text-sm border-b border-gray-200">
-              Sublet Final Price
+              Sublet Amount
             </td>
             <td className="p-3 text-right text-xs md:text-sm border-b border-gray-200">
               {subletAmount.toFixed(2)}

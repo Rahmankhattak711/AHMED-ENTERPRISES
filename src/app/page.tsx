@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import LabourServicesTable from "@/app/component/table/LabourServicesTable";
-import SubletServicesTable from "@/app/component/table/SubletServicesTable";
+// import SubletServicesTable from "@/app/component/table/SubletServicesTable";
 import SummaryTable from "@/app/component/table/SummaryTable";
 import Button from "./component/Button";
 import Header from "./component/Header";
 import CustomerOwnerInfoTable from "./component/table/CustomerOwnerInfoTable";
+import LabourServicesTable from "./component/table/LabourServicesTable";
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -35,11 +35,11 @@ export default function Home() {
     <div className="w-full flex-col flex items-center text-left ">
       <div className="w-[90%]">
         <div ref={contentRef}>
-          <p className="text-right mb-4">Date: {currentDate}</p> 
+          <p className="text-right mx-4 my-4">Date: {currentDate}</p> 
           <Header />
-          <CustomerOwnerInfoTable />
+          <CustomerOwnerInfoTable rowData={subletData} />
           <LabourServicesTable rowData={labourData} />
-          <SubletServicesTable rowData={subletData} />
+          {/* <SubletServicesTable rowData={subletData} /> */}
           <SummaryTable labourData={labourData} subletData={subletData} />
         </div>
         <Button onClick={reactToPrintFn} text="Print Docs" />

@@ -1,10 +1,10 @@
 import { Formik, Form } from "formik";
-import React from "react"
+import React from "react";
 import Button from "../Button";
-import InputField from "./InputFailed";
 import { LabourValidationSchema } from "./validation/LabourValidation";
+import InputField from "./InputFailed";
 
-interface FormValues {
+export interface FormValues {
   approved: string;
   voc: string;
   detailJob: string;
@@ -13,11 +13,11 @@ interface FormValues {
   amount: string;
 }
 
-interface LabourServiceFormProps {
+export default function LabourServiceForm({
+  onRowAdd,
+}: {
   onRowAdd: (row: FormValues, label: string) => void;
-}
-
-export default function LabourServiceForm({ onRowAdd }: LabourServiceFormProps) {
+}) {
   const initialValues: FormValues = {
     approved: "",
     voc: "",
@@ -37,7 +37,7 @@ export default function LabourServiceForm({ onRowAdd }: LabourServiceFormProps) 
     <div className="w-full px-4">
       <Formik
         initialValues={initialValues}
-        validationSchema={LabourValidationSchema} 
+        validationSchema={LabourValidationSchema}
         onSubmit={(values, { resetForm }) => {
           handleSaveToLocalStorage(values);
           onRowAdd(values, "labourService");
@@ -50,7 +50,7 @@ export default function LabourServiceForm({ onRowAdd }: LabourServiceFormProps) 
               <InputField label="Approved" name="approved" placeholder="Yes/No" />
               <InputField label="VOC" name="voc" placeholder="VOC details" />
               <InputField label="Detail Job" name="detailJob" placeholder="Job details" />
-              <InputField label="Fir" name="fir" placeholder="Yes/No" />
+              <InputField label="FIR" name="fir" placeholder="Yes/No" />
               <InputField label="Remarks" name="remarks" placeholder="Any remarks" />
               <InputField label="Amount" name="amount" type="number" placeholder="Amount" />
             </div>

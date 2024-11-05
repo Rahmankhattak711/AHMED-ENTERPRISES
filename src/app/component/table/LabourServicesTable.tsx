@@ -2,18 +2,44 @@
 import React, { useEffect, useState } from "react";
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table";
 import Button from "../Button";
-import { LabourCol } from "./TableColumns";
-import LabourService from "../form/LabourServiceForm";
+import LabourServiceForm, { FormValues } from "../form/LabourServiceForm";
 import "@/app/globals.css";
 
 interface LabourServiceInfo {
-  amount: number;
-  remarks: string;
   approved: string;
   voc: string;
+  remarks: string;
   detailJob: string;
   fir: string;
+  amount: number;
 }
+
+const LabourCol = [
+  {
+    header: "Approved",
+    accessorKey: "approved",
+  },
+  {
+    header: "VOC",
+    accessorKey: "voc",
+  },
+  {
+    header: "Remarks",
+    accessorKey: "remarks",
+  },
+  {
+    header: "Detail Job",
+    accessorKey: "detailJob",
+  },
+  {
+    header: "FIR",
+    accessorKey: "fir",
+  },
+  {
+    header: "Amount",
+    accessorKey: "amount",
+  },
+];
 
 export default function LabourServicesTable({
   rowData,
@@ -25,8 +51,11 @@ export default function LabourServicesTable({
 
   const toggleForm = () => setHide(!hide);
 
-  const onRowAdd = (row: LabourServiceInfo) => {
-    const updatedData = [...data, row];
+  const onRowAdd = (row: FormValues) => {
+    const updatedData = [
+      ...data,
+      { ...row, amount: parseFloat(row.amount) },
+    ];
     setData(updatedData);
     localStorage.setItem("LabourtableData", JSON.stringify(updatedData));
   };
@@ -44,7 +73,7 @@ export default function LabourServicesTable({
   };
 
   const calculateTotalAmount = () => {
-    return data.reduce((total, row) => total + parseFloat(row.amount || 0), 0);
+    return data.reduce((total, row) => total + (row.amount || 0), 0);
   };
 
   useEffect(() => {
@@ -72,7 +101,9 @@ export default function LabourServicesTable({
                   >
                     {header.isPlaceholder
                       ? null
-                      : header.column.columnDef.header()}
+                      : typeof header.column.columnDef.header === "function"
+                      ? header.column.columnDef.header(header.getContext())
+                      : header.column.columnDef.header || ""}
                   </th>
                 ))}
               </tr>
@@ -89,7 +120,7 @@ export default function LabourServicesTable({
                 />
                 {hide && (
                   <div className="w-full">
-                    <LabourService onRowAdd={onRowAdd} />
+                    <LabourServiceForm onRowAdd={onRowAdd} />
                   </div>
                 )}
               </td>
@@ -97,12 +128,12 @@ export default function LabourServicesTable({
 
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id} className="even:bg-gray-50">
-                {row.getVisibleCells().map((cell) => (
+               {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className="p-3 text-xs md:text-sm border-b border-gray-200"
+                    className="px-4 py-3 text-xs md:text-sm border-b border-gray-200"
                   >
-                    {cell.getValue()}
+                    {String(cell.getValue())}
                   </td>
                 ))}
               </tr>
@@ -116,7 +147,7 @@ export default function LabourServicesTable({
                 Total Amount:
               </td>
               <td className="p-3 border-t border-gray-200 text-right">
-                {calculateTotalAmount().toFixed()}
+                {calculateTotalAmount().toFixed(2)}
               </td>
             </tr>
           </tbody>
