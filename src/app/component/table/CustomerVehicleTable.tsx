@@ -114,7 +114,7 @@ export default function CustomerVehicleInfoTable({
               <td colSpan={table.getAllColumns().length}>
                 <Button
                   onClick={toggleForm}
-                  text={hide ? "Hide Form" : "Show Form"}
+                  text={hide ? "Show Form" : "Hide Form"}
                   className="mb-2"
                 />
                 {hide && (

@@ -29,7 +29,7 @@ export default function Home() {
     const today = new Date();
     const formattedDate = today.toLocaleDateString("en-CA");
     setCurrentDate(formattedDate);
-  }, []);
+  }, [labourData, subletData]);
 
   return (
     <div className="w-full flex-col flex items-center text-left ">
