@@ -114,9 +114,10 @@ export default function LabourServicesTable({
             <tr className="no-print">
               <td colSpan={table.getAllColumns().length}>
                 <Button
+                  
                   onClick={toggleForm}
                   text={hide ? "Hide Form" : "Show Form"}
-                  className="mb-2"
+                    className="border-[1px] rounded-md border-gray-600 text-black bg-gray-500"
                 />
                 {hide && (
                   <div className="w-full">

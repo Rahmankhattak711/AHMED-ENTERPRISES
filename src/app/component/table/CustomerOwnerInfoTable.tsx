@@ -69,6 +69,7 @@ export default function CustomerOwnerInfoTable({
           <Button
             onClick={toggleForm}
             text={!hide ? "Show Form" : "Hide Form"}
+            className="border-[1px] rounded-md border-gray-600 text-black bg-gray-500"
           />
           {hide && <CustomerOwnerForm onRowAdd={onRowAdd} />}
         </div>
