@@ -42,7 +42,7 @@ export default function Home() {
           {/* <SubletServicesTable rowData={subletData} /> */}
           <SummaryTable labourData={labourData} subletData={subletData} />
         </div>
-        <Button onClick={reactToPrintFn} text="Print Docs" />
+        <Button className="bg-green-500 text-black" onClick={reactToPrintFn} text="Print Docs" />
       </div>
     </div>
   );

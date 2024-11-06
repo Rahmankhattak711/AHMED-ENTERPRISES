@@ -68,7 +68,7 @@ export default function CustomerOwnerInfoTable({
         <div className="no-print">
           <Button
             onClick={toggleForm}
-            text={hide ? "Show Form" : "Hide Form"}
+            text={!hide ? "Show Form" : "Hide Form"}
           />
           {hide && <CustomerOwnerForm onRowAdd={onRowAdd} />}
         </div>

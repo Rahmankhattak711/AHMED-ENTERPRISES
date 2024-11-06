@@ -53,7 +53,7 @@
 //       ...data,
 //       { ...row,  finalPrice: parseFloat(row.finalPrice) },
 //     ]; 
-//     setData(updatedData );
+//     setData(updatedData);
 //     localStorage.setItem("subletableData", JSON.stringify(updatedData));
 //   };
 

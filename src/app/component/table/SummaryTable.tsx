@@ -63,24 +63,24 @@ export default function SummaryTable({
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {/* <tr>
             <td className="p-3 text-xs md:text-sm border-b border-gray-200">
               Labour Amount
             </td>
             <td className="p-3 text-right text-xs md:text-sm border-b border-gray-200">
               {labourAmount.toFixed(2)}
             </td>
-          </tr>
-          <tr>
+          </tr> */}
+          {/* <tr>
             <td className="p-3 text-xs md:text-sm border-b border-gray-200">
               Sublet Amount
             </td>
             <td className="p-3 text-right text-xs md:text-sm border-b border-gray-200">
               {subletAmount.toFixed(2)}
             </td>
-          </tr>
+          </tr> */}
           <tr className="font-bold bg-gray-100">
-            <td className="p-3 ">Labours & sublets</td>
+            <td className="p-3 ">Amount</td>
             <td className="p-3 text-right">{subtotal.toFixed(2)}</td>
           </tr>
           <tr className="font-bold bg-gray-100">
@@ -92,7 +92,7 @@ export default function SummaryTable({
             <td className="p-3 text-right">{holdingTax.toFixed(2)}</td>
           </tr>
           <tr className="font-bold bg-gray-200">
-            <td className="p-3 ">Total</td>
+            <td className="p-3 ">Total Amount (After Taxes)</td>
             <td className="p-3 text-right">{totalWithTax.toFixed(2)}</td>
           </tr>
         </tbody>

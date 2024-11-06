@@ -54,7 +54,7 @@ export default function LabourServiceForm({
               <InputField label="Remarks" name="remarks" placeholder="Any remarks" />
               <InputField label="Amount" name="amount" type="number" placeholder="Amount" />
             </div>
-            <Button type="submit" text="Add Row" className="mt-4" />
+            <Button  type="submit" text="Add Row" className="mt-4 bg-[#008DD4]" />
           </Form>
         )}
       </Formik>
