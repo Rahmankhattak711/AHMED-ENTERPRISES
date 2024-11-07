@@ -75,7 +75,7 @@ export default function SubletServiceForm({
                 placeholder="Final Price"
               />
             </div>
-            <Button type="submit" text="Add Row" className="mt-4" />
+            <Button type="submit" text="Add Row" className="mt-4 bg-[#008BDA]" />
           </Form>
         )}
       </Formik>

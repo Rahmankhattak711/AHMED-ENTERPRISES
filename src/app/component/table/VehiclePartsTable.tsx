@@ -112,7 +112,7 @@ export default function VehiclePartsTable({
                   
                   onClick={toggleForm}
                   text={hide ? "Hide Form" : "Show Form"}
-                    className="border-[1px] rounded-md border-gray-600 text-black bg-gray-500"
+                  className="mb-2 bg-gray-600 text-white"
                 />
                 {hide && (
                   <div className="w-full">
