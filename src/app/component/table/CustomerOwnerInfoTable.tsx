@@ -23,12 +23,12 @@ export default function CustomerOwnerInfoTable({
   const onRowAdd = (row: CustomerOwnerInfo) => {
     const updatedData = [...data, row];
     setData(updatedData);
-    localStorage.setItem("tableData", JSON.stringify(updatedData));
+    localStorage.setItem("CustomerOwnerData", JSON.stringify(updatedData));
   };
 
   const loadDataFromLocalStorage = () => {
     const storedData = JSON.parse(
-      localStorage.getItem("tableData") || "[]"
+      localStorage.getItem("CustomerOwnerData") || "[]"
     ) as CustomerOwnerInfo[];
     setData(storedData);
   };
