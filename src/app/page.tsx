@@ -12,36 +12,9 @@ import CustomerVehicleTable from "./component/table/CustomerVehicleTable";
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
-
   const reactToPrintFn = useReactToPrint({ contentRef });
 
-  const [hide, setHide] = useState(true);
-
-  const hasVehiclePartData = () => {
-    const storedData = localStorage.getItem("vehicleparttableData");
-    return storedData && JSON.parse(storedData).length > 0;
-  };
-
-  const hasLabourData = () => {
-    const storedData = localStorage.getItem("LabourtableData");
-    return storedData && JSON.parse(storedData).length > 0;
-  };
-
-  const hasSubletData = () => {
-    const storedData = localStorage.getItem("subletableData");
-    return storedData && JSON.parse(storedData).length > 0;
-  };
-
-  const hasCustomerVehicleData = () => {
-    const storedData = localStorage.getItem("VehicleCustomerCarData");
-    return storedData && JSON.parse(storedData).length > 0;
-  };
-
-  const hasCustomerOwnerData = () => {
-    const storedData = localStorage.getItem("CustomerOwnerData");
-    return storedData && JSON.parse(storedData).length > 0;
-  };
-
+  const [hide] = useState(true);
   const [labourData, setLabourData] = useState([]);
   const [subletData, setSubletData] = useState([]);
   const [vehiclePartData, setVehiclePartData] = useState([]);
@@ -50,76 +23,86 @@ export default function Home() {
   const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {
-    const storedCustomerOwnerData = JSON.parse(
-      localStorage.getItem("CustomerOwnerData") || "[]"
-    );
-    setCustomerOwnerData(storedCustomerOwnerData);
+    if (typeof window !== "undefined") {
+      const storedCustomerOwnerData = JSON.parse(
+        localStorage.getItem("CustomerOwnerData") || "[]"
+      );
+      setCustomerOwnerData(storedCustomerOwnerData);
 
-    const storedLabourData = JSON.parse(
-      localStorage.getItem("LabourtableData") || "[]"
-    );
-    setLabourData(storedLabourData);
+      const storedLabourData = JSON.parse(
+        localStorage.getItem("LabourtableData") || "[]"
+      );
+      setLabourData(storedLabourData);
 
-    const storedSubletData = JSON.parse(
-      localStorage.getItem("subletableData") || "[]"
-    );
-    setSubletData(storedSubletData);
+      const storedSubletData = JSON.parse(
+        localStorage.getItem("subletableData") || "[]"
+      );
+      setSubletData(storedSubletData);
 
-    const vehiclePartsData = JSON.parse(
-      localStorage.getItem("vehicleparttableData") || "[]"
-    );
-    setVehiclePartData(vehiclePartsData);
+      const vehiclePartsData = JSON.parse(
+        localStorage.getItem("vehicleparttableData") || "[]"
+      );
+      setVehiclePartData(vehiclePartsData);
 
-    const customerVehicleCarData = JSON.parse(
-      localStorage.getItem("VehicleCustomerCarData") || "[]"
-    );
-    setCustomerVehicleData(customerVehicleCarData);
+      const customerVehicleCarData = JSON.parse(
+        localStorage.getItem("VehicleCustomerCarData") || "[]"
+      );
+      setCustomerVehicleData(customerVehicleCarData);
+    }
 
     const today = new Date();
     const formattedDate = today.toLocaleDateString("en-CA");
     setCurrentDate(formattedDate);
-  }, [labourData, subletData, vehiclePartData, customerVehicleData]);
+  }, [ labourData, subletData, vehiclePartData, customerVehicleData, customerOwnerData]);
+
+  const hasData = (key : string) => {
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem(key);
+      return storedData && JSON.parse(storedData).length > 0;
+    }
+    return false;
+  };
 
   return (
-    <div className="w-full flex-col flex items-center text-left ">
+    <div className="w-full flex-col flex items-center text-left">
       <div className="w-[90%]">
         <div ref={contentRef}>
           <p className="text-right mx-4 my-4">Date: {currentDate}</p>
           <Header />
-          {/* custormer owner */}
-          {hide && hasCustomerOwnerData() ? (
-            <CustomerOwnerInfoTable  rowData={customerOwnerData} />
+          {/* Customer owner */}
+          {hide && hasData("CustomerOwnerData") ? (
+            <CustomerOwnerInfoTable rowData={customerOwnerData} />
           ) : (
             <div className="no-print">
-              <CustomerOwnerInfoTable rowData={customerOwnerData}/>
+              <CustomerOwnerInfoTable rowData={customerOwnerData} />
             </div>
           )}
-          {/* // customer Vehcile table */}
-          {hide && hasCustomerVehicleData() ? (
+          {/* Customer vehicle table */}
+          {hide && hasData("VehicleCustomerCarData") ? (
             <CustomerVehicleTable rowData={customerVehicleData} />
           ) : (
             <div className="no-print">
               <CustomerVehicleTable rowData={customerVehicleData} />
             </div>
           )}
-          {/* labour */}
-          {hide && hasLabourData() ? (
+          {/* Labour */}
+          {hide && hasData("LabourtableData") ? (
             <LabourServicesTable rowData={labourData} />
           ) : (
             <div className="no-print">
               <LabourServicesTable rowData={labourData} />
             </div>
           )}
-          {/* // sublet */}
-          {hide && hasSubletData() ? (
+          {/* Sublet */}
+          {hide && hasData("subletableData") ? (
             <SubletServicesTable rowData={subletData} />
           ) : (
             <div className="no-print">
               <SubletServicesTable rowData={subletData} />
             </div>
           )}
-          {/* sublet */}
-          {hide && hasVehiclePartData() ? (
+          {/* Vehicle parts */}
+          {hide && hasData("vehicleparttableData") ? (
             <VehiclePartsTable rowData={vehiclePartData} />
           ) : (
             <div className="no-print">
