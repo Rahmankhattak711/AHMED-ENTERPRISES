@@ -51,7 +51,7 @@ export default function VehiclePartsForm({
               <InputField label="Quantity" name="qty" placeholder="Quantity" />
               <InputField label="Amount" name="partAmount" type="number" placeholder="Amount" />
             </div>
-            <Button  type="submit" text="Add Row" className="mt-4 bg-[#008DD4]" />
+            <Button type="submit" text="Add Row" className="self-start mt-4 text-white bg-[#008BDA]" />
           </Form>
         )}
       </Formik>

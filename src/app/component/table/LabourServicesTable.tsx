@@ -52,10 +52,7 @@ export default function LabourServicesTable({
   const toggleForm = () => setHide(!hide);
 
   const onRowAdd = (row: FormValues) => {
-    const updatedData = [
-      ...data,
-      { ...row, amount: parseFloat(row.amount) },
-    ];
+    const updatedData = [...data, { ...row, amount: parseFloat(row.amount) }];
     setData(updatedData);
     localStorage.setItem("LabourtableData", JSON.stringify(updatedData));
   };
@@ -88,10 +85,10 @@ export default function LabourServicesTable({
 
   return (
     <div className="w-full flex flex-col gap-4 p-4">
-      <h1 className="text-2xl font-bold mb-4">Labour Services</h1>
-      <div className="w-full overflow-x-auto">
-        <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
-          <thead className="bg-gray-600 text-white">
+      <div className="w-full flex flex-col gap-4 p-4 bg-[#F9F9F9] rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold mb-4">Labour Services</h1>
+        <table className="w-full bg-white  shadow-lg overflow-hidden">
+          <thead className="bg-[#008DDC] text-white">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -114,10 +111,10 @@ export default function LabourServicesTable({
             <tr className="no-print">
               <td colSpan={table.getAllColumns().length}>
                 <Button
-                  
                   onClick={toggleForm}
                   text={hide ? "Hide Form" : "Show Form"}
-                    className="mb-2 bg-gray-600 text-white"
+                  // className="mb-2 bg-gray-600 text-white"
+                  className="my-2 mx-2 border-b-4 border-black"
                 />
                 {hide && (
                   <div className="w-full">
@@ -129,7 +126,7 @@ export default function LabourServicesTable({
 
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id} className="even:bg-gray-50">
-               {row.getVisibleCells().map((cell) => (
+                {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
                     className="px-4 py-3 text-xs md:text-sm border-b border-gray-200"
@@ -155,7 +152,7 @@ export default function LabourServicesTable({
         </table>
 
         <Button
-          className="no-print mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
+          className="no-print w-36 mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
           onClick={clearData}
           text="Reset Data"
         />

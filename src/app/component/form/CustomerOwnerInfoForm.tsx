@@ -48,7 +48,7 @@ export default function CustomerOwnerForm({
               <InputField label="User's Email" name="userEmail" placeholder="Enter your email address" />
               <InputField label="Address" name="address" placeholder="Enter your address" /> {/* Address field */}
             </div>
-            <Button className="bg-[#008DD4] " type="submit" text="Add Customer/Owner Info" />
+            <Button className="self-start bg-[#008DD4] text-white" type="submit" text="Add Customer/Owner Info" />
           </Form>
         )}
       </Formik>

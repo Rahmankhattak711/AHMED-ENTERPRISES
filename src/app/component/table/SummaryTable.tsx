@@ -57,13 +57,14 @@ export default function SummaryTable({
   const subtotal = labourAmount + subletAmount + vehiclePartAmount;
   const salesTax = subtotal * 0.15;
   const holdingTax = subtotal * 0.18;
-  const totalWithTax = subtotal + vehiclePartAmount + salesTax + holdingTax;
+  const totalWithTax = subtotal + salesTax + holdingTax;
 
   return (
-    <div className="w-full flex flex-col gap-4 p-4 bg-gray-100 rounded-lg shadow-md">
+    <div className="w-full flex flex-col gap-4 p-4">
+      <div className="w-full flex flex-col gap-4 p-4 bg-[#F9F9F9] rounded-lg shadow-md">
       <h2 className="text-xl font-bold mb-4">Summary</h2>
       <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-        <thead className="bg-gray-600 text-white">
+      <thead className="bg-[#008DDC] text-white">
           <tr>
             <th className="px-4 py-3 text-left text-xs md:text-sm">
               Description
@@ -94,6 +95,7 @@ export default function SummaryTable({
           </tr>
         </tbody>
       </table>
+    </div>
     </div>
   );
 }

@@ -90,10 +90,10 @@ export default function SubletServicesTable({
 
   return (
     <div className="w-full flex flex-col gap-4 p-4">
+      <div className="w-full flex flex-col gap-4 p-4 bg-[#F9F9F9] rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4">Sublet Services</h1>
-      <div className="w-full overflow-x-auto">
-        <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-          <thead className="bg-gray-600 text-white ">
+        <table className="w-full bg-white shadow-lg overflow-hidden border border-gray-200">
+        <thead className="bg-[#008DDC] text-white">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -118,7 +118,8 @@ export default function SubletServicesTable({
                 <Button
                   onClick={toggleForm}
                   text={hide ? "Hide Form" : "Show Form"}
-                  className="mb-2 bg-gray-600 text-white"
+                  // className="mb-2 bg-gray-600 text-white"
+                     className="my-2 mx-2 border-b-4 border-black"
                 />
                 {hide && (
                   <div className="w-full mt-4">
@@ -156,7 +157,7 @@ export default function SubletServicesTable({
         </table>
 
         <Button
-          className="no-print mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
+          className="no-print w-36 mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
           onClick={clearData}
           text="Reset Data"
         />

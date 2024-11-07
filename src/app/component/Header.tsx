@@ -46,12 +46,12 @@ export default function Header() {
       </div>
 
       {/* Repair info */}
-      <div className="w-full text-center md:text-left text-sm mt-4">
+      {/* <div className="w-full text-center md:text-left text-sm mt-4">
         <p className="font-extrabold">
           Estimate : EST-089521 (M) | GENERAL REPAIR
         </p>
         <p className="font-extrabold">Estimate date : 08 Oct 2024</p>
-      </div>
+      </div> */}
     </header>
   );
 }

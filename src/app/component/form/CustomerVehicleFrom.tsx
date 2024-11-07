@@ -57,7 +57,7 @@ export default function CustomerVehicleForm({
               <InputField label="Engine No" name="engineNo" placeholder="Engine No" />
               <InputField label="Color" name="color" placeholder="Color" />
             </div>
-            <Button className="bg-[#008DDB]" type="submit" text="Add Customer Vehicle Info" />
+            <Button className="bg-[#008DDB] text-white self-start" type="submit" text="Add Customer Vehicle Info" />
           </Form>
         )}
       </Formik>

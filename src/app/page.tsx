@@ -65,7 +65,7 @@ export default function Home() {
           />
         </div>
         <Button
-          className="bg-green-500 text-black"
+          className="bg-[#1574E7] mx-4 text-white"
           onClick={reactToPrintFn}
           text="Print Docs"
         />

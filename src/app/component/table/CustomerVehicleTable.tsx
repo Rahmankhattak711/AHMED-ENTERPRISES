@@ -89,11 +89,10 @@ export default function CustomerVehicleTable({
 
   return (
     <div className="w-full flex flex-col gap-6 p-4">
-      <h1 className="text-2xl font-bold mb-4">Customer Vehicle Info</h1>
-
-      <div className="w-full overflow-x-auto rounded-lg shadow-lg">
-        <table className="w-full bg-white rounded-lg overflow-hidden">
-          <thead className="bg-gray-600 text-white">
+      <div className="w-full flex flex-col gap-4 p-4 bg-[#F9F9F9] rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold mb-4">Customer Vehicle Info</h1>
+        <table className="w-full bg-[#F9F9F9]  overflow-hidden">
+          <thead className="bg-[#008DDC] text-white">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -114,11 +113,11 @@ export default function CustomerVehicleTable({
               <td colSpan={table.getAllColumns().length}>
                 <Button
                   onClick={toggleForm}
-                  text={hide ? "Show Form" : "Hide Form"}
-                  className="mb-2 bg-gray-600 text-white"
+                  text={!hide ? "Show Form" : "Hide Form"}
+                  className="my-2 mx-2 border-b-4 border-black"
                 />
                 {hide && (
-                  <div className="w-full mt-4"> 
+                  <div className="w-full mt-2">
                     <CustomerVehicleForm onRowAdd={onRowAdd} />
                   </div>
                 )}
@@ -145,13 +144,12 @@ export default function CustomerVehicleTable({
             ))}
           </tbody>
         </table>
+        <Button
+          className="no-print self-start mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          onClick={clearData}
+          text="Reset Data"
+        />
       </div>
-
-      <Button
-        className="no-print self-start mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-        onClick={clearData}
-        text="Reset Data"
-      />
     </div>
   );
 }

@@ -63,13 +63,14 @@ export default function CustomerOwnerInfoTable({
 
   return (
     <div className="w-full flex flex-col gap-4 p-4">
-      <h1 className="text-2xl font-bold mb-4">Customer Owner Information</h1>
-      <div className="w-full flex flex-col gap-4 p-4 bg-gray-100 rounded-lg shadow-md">
+      <div className="w-full flex flex-col gap-4 p-4 bg-[#F9F9F9] rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold">Customer Owner Information</h1>
         <div className="no-print">
           <Button
             onClick={toggleForm}
             text={!hide ? "Show Form" : "Hide Form"}
-            className="mb-2 bg-gray-600 text-white"
+            // className="mb-2 bg-gray-600 text-white"
+            className="mx-2 border-b-4 border-black"
           />
           {hide && <CustomerOwnerForm onRowAdd={onRowAdd} />}
         </div>
@@ -86,9 +87,7 @@ export default function CustomerOwnerInfoTable({
             {data.map((row, index) => (
               <div key={index}>
                 {LabourCol.map((column) => (
-                  <div key={column.accessor}>
-                    {row[column.accessor]}
-                  </div>
+                  <div key={column.accessor}>{row[column.accessor]}</div>
                 ))}
               </div>
             ))}
