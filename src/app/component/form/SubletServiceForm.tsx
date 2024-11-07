@@ -5,12 +5,13 @@ import InputField from "./InputFailed";
 import { SubletValidationSchema } from "./validation/SubletValidation";
 
 export interface FormValues {
+  finalPrice: string;
   approved: string;
   voc: string;
-  estPrice: string;
+  estPrice: string; 
   fir: string;
   remarks: string;
-  finalPrice: string;
+
 }
 
 export default function SubletServiceForm({

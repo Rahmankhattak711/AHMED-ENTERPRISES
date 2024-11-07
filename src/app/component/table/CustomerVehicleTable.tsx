@@ -8,7 +8,7 @@ import Button from "../Button";
 import CustomerVehicleForm from "../form/CustomerVehicleFrom";
 import "@/app/globals.css";
 
-interface CustomerVehicleInfo {
+interface CustomerVehicleTable {
   make: string;
   variant: string;
   regNo: string;
@@ -18,7 +18,7 @@ interface CustomerVehicleInfo {
   mileage: string;
 }
 
-const columns: ColumnDef<CustomerVehicleInfo>[] = [
+const columns: ColumnDef<CustomerVehicleTable>[] = [
   {
     header: "Make",
     accessorKey: "make",
@@ -49,17 +49,17 @@ const columns: ColumnDef<CustomerVehicleInfo>[] = [
   },
 ];
 
-export default function CustomerVehicleInfoTable({
+export default function CustomerVehicleTable({
   rowData,
 }: {
-  rowData: CustomerVehicleInfo[];
+  rowData: CustomerVehicleTable[];
 }) {
-  const [data, setData] = useState<CustomerVehicleInfo[]>(rowData || []);
+  const [data, setData] = useState<CustomerVehicleTable[]>(rowData || []);
   const [hide, setHide] = useState(false);
 
   const toggleForm = () => setHide(!hide);
 
-  const onRowAdd = (row: CustomerVehicleInfo) => {
+  const onRowAdd = (row: CustomerVehicleTable) => {
     const updatedData = [...data, row];
     setData(updatedData);
     localStorage.setItem("tableData", JSON.stringify(updatedData));
@@ -68,7 +68,7 @@ export default function CustomerVehicleInfoTable({
   const loadDataFromLocalStorage = () => {
     const storedData = JSON.parse(
       localStorage.getItem("tableData") || "[]"
-    ) as CustomerVehicleInfo[];
+    ) as CustomerVehicleTable[];
     setData(storedData);
   };
 
@@ -115,10 +115,10 @@ export default function CustomerVehicleInfoTable({
                 <Button
                   onClick={toggleForm}
                   text={hide ? "Show Form" : "Hide Form"}
-                  className="mb-2"
+                  className="mb-2 bg-gray-600 text-white"
                 />
                 {hide && (
-                  <div className="w-full mt-4">
+                  <div className="w-full mt-4"> 
                     <CustomerVehicleForm onRowAdd={onRowAdd} />
                   </div>
                 )}

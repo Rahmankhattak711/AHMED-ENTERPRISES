@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import React from "react";
 import Button from "../Button";
 import InputField from "./InputFailed";
-import { CustomerValidationSchema } from "./validation/CustomerValidation";
+import { CustomerVehicleValidationSchema } from "./validation/CustomerVehicleValidation";
 
 interface FormValues {
   make: string;
@@ -30,16 +30,16 @@ export default function CustomerVehicleForm({
   };
 
   const handleSaveToLocalStorage = (newData: FormValues) => {
-    const existingData = JSON.parse(localStorage.getItem("VehicleCustomerData") || "[]");
+    const existingData = JSON.parse(localStorage.getItem("VehicleCustomerCarData") || "[]");
     const updatedData = [...existingData, newData];
-    localStorage.setItem("VehicleCustomerData", JSON.stringify(updatedData));
+    localStorage.setItem("VehicleCustomerCarData", JSON.stringify(updatedData));
   };
 
   return (
     <div className="w-full px-4 py-6 bg-white shadow-md rounded-lg">
       <Formik
         initialValues={initialValues}
-        validationSchema={CustomerValidationSchema} 
+        validationSchema={CustomerVehicleValidationSchema} 
         onSubmit={(values, { resetForm }) => {
           handleSaveToLocalStorage(values);
           onRowAdd(values, "vehicleCustomer");
@@ -57,7 +57,7 @@ export default function CustomerVehicleForm({
               <InputField label="Engine No" name="engineNo" placeholder="Engine No" />
               <InputField label="Color" name="color" placeholder="Color" />
             </div>
-            <Button type="submit" text="Add Customer Vehicle Info" />
+            <Button className="bg-[#008DDB]" type="submit" text="Add Customer Vehicle Info" />
           </Form>
         )}
       </Formik>

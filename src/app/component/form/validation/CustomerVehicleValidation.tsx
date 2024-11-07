@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const CustomerValidationSchema = Yup.object().shape({
+export const CustomerVehicleValidationSchema = Yup.object().shape({
     make: Yup.string().required("Make is required"),
     variant: Yup.string().required("Variant is required"),
     regNo: Yup.string().required("Registration number is required"),

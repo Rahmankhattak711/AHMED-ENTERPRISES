@@ -88,7 +88,7 @@ export default function LabourServicesTable({
 
   return (
     <div className="w-full flex flex-col gap-4 p-4">
-      <h1 className="text-2xl font-bold mb-4">Services</h1>
+      <h1 className="text-2xl font-bold mb-4">Labour Services</h1>
       <div className="w-full overflow-x-auto">
         <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
           <thead className="bg-gray-600 text-white">
@@ -117,7 +117,7 @@ export default function LabourServicesTable({
                   
                   onClick={toggleForm}
                   text={hide ? "Hide Form" : "Show Form"}
-                    className="border-[1px] rounded-md border-gray-600 text-black bg-gray-500"
+                    className="mb-2 bg-gray-600 text-white"
                 />
                 {hide && (
                   <div className="w-full">

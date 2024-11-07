@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
 import "@/app/globals.css";
-import CustomerOwnerForm from "../form/CustomerOwnerInfo";
+import CustomerOwnerForm from "../form/CustomerOwnerInfoForm";
 
 interface CustomerOwnerInfo {
   userName: string;
@@ -69,7 +69,7 @@ export default function CustomerOwnerInfoTable({
           <Button
             onClick={toggleForm}
             text={!hide ? "Show Form" : "Hide Form"}
-            className="border-[1px] rounded-md border-gray-600 text-black bg-gray-500"
+            className="mb-2 bg-gray-600 text-white"
           />
           {hide && <CustomerOwnerForm onRowAdd={onRowAdd} />}
         </div>

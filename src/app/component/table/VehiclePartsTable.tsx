@@ -1,81 +1,74 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import {
-  useReactTable,
-  getCoreRowModel,
-} from "@tanstack/react-table";
+import { useReactTable, getCoreRowModel } from "@tanstack/react-table";
 import Button from "../Button";
-import SubletServiceForm, { FormValues } from "../form/SubletServiceForm";
 import "@/app/globals.css";
+import VehiclePartsForm,{ FormValues } from "../form/VehiclePartsForm";
 
-interface SubletServiceInfo {
-  approved: string;
-  voc: string;
-  remarks: string;
-  fir: string;
-  estPrice: string;
-  finalPrice: number;
+interface VehiclePartsTableProps {
+  partNo: string;
+  partName: string;
+  unitPrice: string;
+  qty: string;
+  partAmount: number;
 }
 
-const SubletServiceCol = [
+const LabourCol = [
   {
-    header: "Approved",
-    accessorKey: "approved",
+    header: "Part No",
+    accessorKey: "partNo",
   },
   {
-    header: "VOC",
-    accessorKey: "voc",
+    header: "Part Name",
+    accessorKey: "partName",
   },
   {
-    header: "Remarks",
-    accessorKey: "remarks",
+    header: "Unit Price",
+    accessorKey: "unitPrice",
   },
   {
-    header: "Fir",
-    accessorKey: "fir",
+    header: "Quantity",
+    accessorKey: "qty",
   },
   {
-    header: "Est. Price",
-    accessorKey: "estPrice",
-  },
-  {
-    header: "Final Price",
-    accessorKey: "finalPrice",
+    header: "Amount",
+    accessorKey: "partAmount",
   },
 ];
 
-export default function SubletServicesTable({
+export default function VehiclePartsTable({
   rowData,
 }: {
-  rowData: SubletServiceInfo[];
+  rowData: VehiclePartsTableProps[];
 }) {
   const [data, setData] = useState(rowData || []);
   const [hide, setHide] = useState(false);
 
   const toggleForm = () => setHide(!hide);
- 
+
   const onRowAdd = (row: FormValues) => {
     const updatedData = [
       ...data,
-      { ...row, finalPrice: parseFloat(row.finalPrice) },
+      { ...row, partAmount: parseFloat(row.partAmount) },
     ];
     setData(updatedData);
-    localStorage.setItem("subletableData", JSON.stringify(updatedData));
+    localStorage.setItem("vehicleparttableData", JSON.stringify(updatedData));
   };
 
   const loadDataFromLocalStorage = () => {
     const storedData = JSON.parse(
-      localStorage.getItem("subletableData") || "[]"
-    ) as SubletServiceInfo[];
+      localStorage.getItem("vehicleparttableData") || "[]"
+    ) as VehiclePartsTableProps[];
     setData(storedData);
   };
 
   const clearData = () => {
-    localStorage.removeItem("subletableData");
+    localStorage.removeItem("vehicleparttableData");
     setData([]);
   };
 
   const calculateTotalAmount = () => {
-    return data.reduce((total, row) => total + (row.finalPrice || 0), 0);
+    return data.reduce((total, row) => total + (row.partAmount || 0), 0);
   };
 
   useEffect(() => {
@@ -84,16 +77,16 @@ export default function SubletServicesTable({
 
   const table = useReactTable({
     data,
-    columns: SubletServiceCol,
+    columns: LabourCol,
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
     <div className="w-full flex flex-col gap-4 p-4">
-      <h1 className="text-2xl font-bold mb-4">Sublet Services</h1>
+      <h1 className="text-2xl font-bold mb-4">Vehicle Parts</h1>
       <div className="w-full overflow-x-auto">
-        <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-          <thead className="bg-gray-600 text-white ">
+        <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
+          <thead className="bg-gray-600 text-white">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -116,13 +109,14 @@ export default function SubletServicesTable({
             <tr className="no-print">
               <td colSpan={table.getAllColumns().length}>
                 <Button
+                  
                   onClick={toggleForm}
                   text={hide ? "Hide Form" : "Show Form"}
-                  className="mb-2 bg-gray-600 text-white"
+                    className="border-[1px] rounded-md border-gray-600 text-black bg-gray-500"
                 />
                 {hide && (
-                  <div className="w-full mt-4">
-                    <SubletServiceForm onRowAdd={onRowAdd} />
+                  <div className="w-full">
+                    <VehiclePartsForm onRowAdd={onRowAdd} />
                   </div>
                 )}
               </td>
@@ -130,7 +124,7 @@ export default function SubletServicesTable({
 
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id} className="even:bg-gray-50">
-                {row.getVisibleCells().map((cell) => (
+               {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
                     className="px-4 py-3 text-xs md:text-sm border-b border-gray-200"
@@ -149,7 +143,7 @@ export default function SubletServicesTable({
                 Total Amount:
               </td>
               <td className="p-3 border-t border-gray-200 text-right">
-                {calculateTotalAmount().toFixed()}
+                {calculateTotalAmount().toFixed(2)}
               </td>
             </tr>
           </tbody>
