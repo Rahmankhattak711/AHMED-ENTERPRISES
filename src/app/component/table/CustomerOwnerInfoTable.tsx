@@ -34,7 +34,7 @@ export default function CustomerOwnerInfoTable({
   };
 
   const clearData = () => {
-    localStorage.removeItem("tableData");
+    localStorage.removeItem("CustomerOwnerData");
     setData([]);
   };
 
