@@ -74,23 +74,25 @@ export default function CustomerOwnerInfoTable({
           />
           {hide && <CustomerOwnerForm onRowAdd={onRowAdd} />}
         </div>
-        <div className=" ">
-          <div className="flex gap-4">
+        <div >
+          <div >
             {/* Header Row */}
-            <div className="font-bold">
+            <div className="w-full flex gap-10">
               {LabourCol.map((column) => (
                 <div key={column.accessor}>{column.Header}</div>
               ))}
             </div>
 
             {/* Data Rows */}
-            {data.map((row, index) => (
-              <div key={index}>
+          <div >
+          {data.map((row, index) => (
+              <div key={index} className="flex gap-8 w-full">
                 {LabourCol.map((column) => (
                   <div key={column.accessor}>{row[column.accessor]}</div>
                 ))}
               </div>
             ))}
+          </div>
           </div>
 
           <Button

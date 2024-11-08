@@ -2,7 +2,6 @@ import { Formik, Form } from "formik";
 import React from "react";
 import Button from "../Button";
 import InputField from "./InputFailed";
-import { CustomerVehicleValidationSchema } from "./validation/CustomerVehicleValidation";
 
 interface FormValues {
   make: string;
@@ -39,7 +38,6 @@ export default function CustomerVehicleForm({
     <div className="w-full px-4 py-6 bg-white shadow-md rounded-lg">
       <Formik
         initialValues={initialValues}
-        validationSchema={CustomerVehicleValidationSchema} 
         onSubmit={(values, { resetForm }) => {
           handleSaveToLocalStorage(values);
           onRowAdd(values, "vehicleCustomer");
